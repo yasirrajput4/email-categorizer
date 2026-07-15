@@ -63,6 +63,7 @@ def fetch_recent_emails(limit=10, imap_server="imap.gmail.com"):
         subject = clean(subject)
 
         from_ = msg.get("From")
+        message_id = msg.get("Message-ID")
 
         body = ""
         if msg.is_multipart():
@@ -74,7 +75,7 @@ def fetch_recent_emails(limit=10, imap_server="imap.gmail.com"):
         else:
             body = clean(msg.get_payload(decode=True))
 
-        results.append({"subject": subject, "from": from_, "body": body})
+        results.append({"subject": subject, "from": from_, "body": body, "message_id": message_id})
 
     mail.logout()
     return results
