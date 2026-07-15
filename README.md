@@ -32,7 +32,9 @@ email-categorizer/
 ├── train_model.py            # trains TF-IDF + Logistic Regression classifier
 ├── email_fetcher.py          # imaplib-based real inbox fetcher (automation)
 ├── reply_suggester.py        # rule-based reply suggestion engine (unique feature)
-├── main.py                   # orchestrator: fetch -> classify -> suggest replies
+├── reply_sender.py           # smtplib-based reply sender (send/edit/write own reply)
+├── main.py                   # terminal orchestrator: fetch -> classify -> suggest replies
+├── app.py                    # Streamlit web app (browser-based UI)
 ├── requirements.txt
 └── .gitignore                # excludes venv/, __pycache__/, .env from git
 ```
@@ -73,7 +75,29 @@ python main.py
 export EMAIL_USER="youremail@gmail.com"
 export EMAIL_PASS="your_16_char_gmail_app_password"
 python main.py --live
+
+# Step 3 (alternative): Run the Web App (Streamlit) instead of the terminal
+streamlit run app.py
 ```
+
+## Web App (Recommended for Demo/Viva)
+
+Instead of terminal output, run the Streamlit web interface — opens automatically
+in your browser at `http://localhost:8501`:
+
+```bash
+streamlit run app.py
+```
+
+- **Demo mode**: sidebar → "Demo (sample data)" → click "Load Demo Emails" — shows
+  color-coded category badges for each email.
+- **Live mode**: sidebar → enter Gmail address + App Password → "Live (real Gmail
+  inbox)" → click "Fetch Live Emails".
+- **Replying**: open the "Reply" section under any email → pick one of the 3
+  suggested replies (or "Write my own") → edit the text freely → click
+  "Send Reply". This uses `smtplib` to actually send the email (requires the
+  same Gmail address + App Password entered in the sidebar). In demo mode you
+  can type any address to test-send since the sample emails have no real sender.
 
 > Once done working, run `deactivate` to exit the virtual environment.
 > When active, your terminal prompt will show `(venv)` at the start.
