@@ -20,4 +20,4 @@ Thumbs.db
 .idea/
 
 # Trained model (optional: comment this out if you WANT to commit the model)
-model/model.pkl
+# model/model.pkl
